@@ -1,0 +1,219 @@
+<html>
+<head>
+	<title>iTrace :: Trace the Internet</title>
+	<script src="jquery-1.3.2.min.js" type="text/javascript"></script>
+	
+	
+	
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$("#mtrace").click(function() {
+				//$('#trace').show();
+				$('#history').hide("slow");
+				$('#trace').show("slow");
+				$("#output").show("slow");
+			}); 
+			
+			$("#mhistory").click(function() {
+				$("#trace").hide("slow");
+				$("#history").show("slow");
+				$("#output").hide();
+			});
+			$("#fmtrace").click(function() {
+				//$('#trace').show();
+				$('#history').hide("slow");
+				$('#trace').show("slow");
+				$("#output").show("slow");
+			}); 
+			
+			$("#fmhistory").click(function() {
+				$("#trace").hide("slow");
+				$("#history").show("slow");
+				$("#output").hide();
+			});
+			
+			$("#trace_it").click(function(){
+				$('#output').load("wait.html");
+				$('#output').load("traceroute.php", {'host': $('#host').attr('value'), 'hops' : $('#hops').attr('value')});
+			});
+		    $('form').keyup(function(e) {
+		   		if(e.keyCode == 13) {
+		  			$('#output').load("wait.html");
+					$('#output').load("traceroute.php", {'host': $('#host').attr('value'), 'hops' : $('#hops').attr('value')});
+		   		}
+		    });
+		
+		
+		});
+	</script>
+	
+
+<style type="text/css">
+	body {
+		background-color: #383c3d;
+		padding: 0px;
+		color: #a6aea3;
+	}
+
+	.head, .foot {
+		width: 800px;
+		height: 35px;
+		margin: auto;
+	}
+	.head .left {
+		font-size: 40px;
+	}
+	.left {
+		float: left;
+	}
+	.right {
+		float: right;
+		text-align: right;
+	}
+	.foot {
+		font-size: 12px;
+		margin-top: 3px;
+	}
+
+	.container {
+		-moz-border-radius: 10px;
+		-webkit-border-radius: 10px;
+		background-color: #595b5a;
+		margin-bottom: 5px;
+		width: 800px;
+		margin: auto;
+		padding: 15px;
+	}
+	
+	.menu {
+		-moz-border-radius: 20px;
+		-webkit-border-radius: 20px;
+		background-color: #595b5a;
+		margin-bottom: 5px;
+		margin: auto;
+		padding: 6px;
+		padding-left: 10px;
+		padding-right: 10px;
+	}
+	
+	.menu_item {
+		
+	}
+	.menu span:hover {
+		background-color: #a6aea3;
+		color: #383c3d;
+	}
+
+	p {
+		text-indent: 15px;
+	}
+	p:first-letter {
+		font-size:35px;
+		font-weight: bold;
+	}
+	
+	.box {
+		
+	}
+	
+	#proj_info {
+		border-bottom: 1px dashed #a6aea3;
+		margin-bottom: 15px;
+	}
+	
+	#proj_authors {
+		list-style-type: none;
+	}
+	#alex {
+		 background-image: url(user1_16x16.png);
+		background-repeat: no-repeat;
+		padding-left: 1.3em;
+		margin-bottom: 3px;
+	}
+	#ben {
+		 background-image: url(user2_16x16.png);
+		background-repeat: no-repeat;
+		padding-left: 1.3em;
+		margin-bottom: 3px;
+	}
+	#jacob {
+		 background-image: url(user3_16x16.png);
+		background-repeat: no-repeat;
+		padding-left: 1.3em;
+		margin-bottom: 3px;
+	}
+	
+	.box {
+		background-color: #a6aea3;
+		border: 1px solid #383c3d;
+		color: #595b5a;
+		padding: 10px;
+	}
+	#trace_it {
+		font-size: 25px;
+		cursor: pointer;
+	}
+	#output {
+		overflow: auto;
+	}
+</style>
+</head>
+<body>
+
+	<div class="head">
+		<div class="left">iTrace</div>
+		<div class="right">
+			<div class="menu">
+				<span id="mtrace">Trace</span> |
+				<span id="mhistory">History</span>
+			</div>
+		</div>
+	</div>
+	
+	<div class="container">
+		<div id="proj_info"><p>iTrace is a web trace route utility. Traceroute is a computer network tool used to determine the route taken by packets across an IP network. Traceroute is often used for network troubleshooting. By showing a list of routers traversed, it allows the user to identify the path taken to reach a particular destination on the network. This can help identify routing problems or firewalls that may be blocking access to a site. Traceroute is also used by penetration testers to gather information about network infrastructure and IP ranges around a given host. It can also be used when downloading data, and if there are multiple mirrors available for the same piece of data, one can trace each mirror to get a good idea of which mirror would be the fastest to use.</p>
+			Authors:
+			<ul id="proj_authors">
+				<li id="alex">Alex Moritz</li>
+				<li id="ben">Ben Lobaugh</li>
+				<li id="jacob">Jacob Bodenstab</li>
+			</ul>
+		</div>
+		
+		<div id="trace">
+			<table>
+			<tr>
+				<td valign="top">
+			<div class="box" style="width: 250px;">
+				<form action="" method="get">
+				Enter a host to trace:<br />
+				<input type="text" id="host" name="host" size="30" value="google.com"><br /><br />
+				Enter max hops (Default: 10):<br />
+				<input type="text" id="hops" name="hops" size="30" value="10"><br />
+				<br />
+				<center><span id="trace_it">Trace It!</span></center>
+				</form>
+			</div>
+			</td>
+			<td valign="top" style="padding-left: 5px">
+				<div class="box" id="output" style="width: 493px">
+					
+				</div>
+			</td>
+			</tr>
+			</table>
+		</div>
+		
+		<div id="history" style="display: none">History</div>
+	</div>
+	
+	<div class="foot">
+		<div class="left">
+			<span id="fmtrace">Trace</span> |
+			<span id="fmhistory">History</span>
+		</div>
+		<div class="right">iTrace</div>
+	</div>
+
+</body>
+</html>
